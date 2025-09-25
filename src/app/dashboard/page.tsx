@@ -8,7 +8,6 @@ import { DollarSign, Users, Target, TrendingUp } from "lucide-react"
 import { KpiCard } from "@/components/dashboard/kpi-card"
 import { SalesFunnelChart } from "@/components/dashboard/sales-funnel-chart"
 import { PlatformRevenueChart } from "@/components/dashboard/platform-revenue-chart"
-import { KpiProjection } from "@/components/dashboard/kpi-projection"
 
 export default function DashboardPage() {
   return (
@@ -59,8 +58,6 @@ export default function DashboardPage() {
         </Card>
       </div>
       
-      <KpiProjection />
-
     </div>
   )
 }
