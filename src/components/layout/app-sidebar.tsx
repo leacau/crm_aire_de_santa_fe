@@ -14,11 +14,15 @@ import {
   KanbanSquare,
   Users,
   Calendar,
-  Settings,
+  LogOut,
 } from "lucide-react"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
 import { UserNav } from "../user-nav"
+import { useFirebase } from "@/firebase"
+import { getAuth, signOut } from "firebase/auth"
+import { useRouter } from "next/navigation"
+import { useToast } from "@/hooks/use-toast"
 
 const navItems = [
   { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
@@ -29,6 +33,27 @@ const navItems = [
 
 export function AppSidebar() {
   const pathname = usePathname()
+  const { app } = useFirebase()
+  const router = useRouter()
+  const { toast } = useToast()
+
+  const handleLogout = async () => {
+    const auth = getAuth(app)
+    try {
+      await signOut(auth)
+      toast({
+        title: "Sesión cerrada",
+        description: "Has cerrado sesión exitosamente.",
+      })
+      router.push("/login")
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "No se pudo cerrar la sesión.",
+      })
+    }
+  }
 
   return (
     <Sidebar
@@ -56,7 +81,7 @@ export function AppSidebar() {
             <path d="M12 12c2.4 0 4.7.9 6.5 2.5" />
             <path d="M12 12v- конституция" />
             <path d="M12 12c-5.2 0-9.5 3.1-9.5 7v0" />
-            <path d="M12 12c5.2 0 9.5 3.1 9.5 7v0" />
+            <path d="M12 12c5.2 0 9.5 3.1-9.5 7v0" />
             <path d="M7.2 9.5c.8-.5 1.7-.8 2.8-.8s2.1.3 2.8.8" />
             <path d="M12 2a10 10 0 0 0-9.5 7.5" />
             <path d="M21.5 9.5A10 10 0 0 0 12 2" />
@@ -91,6 +116,16 @@ export function AppSidebar() {
         <div className="hidden group-data-[collapsible=icon]:block">
            <UserNav isCollapsed />
         </div>
+         <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton onClick={handleLogout} tooltip="Log Out">
+                <span>
+                    <LogOut />
+                    <span>Log Out</span>
+                </span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
       </SidebarFooter>
     </Sidebar>
   )

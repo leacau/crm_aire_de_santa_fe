@@ -1,10 +1,8 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { cn } from '@/lib/utils';
-import { AppSidebar } from '@/components/layout/app-sidebar';
-import { Header } from '@/components/layout/header';
-import { SidebarProvider } from '@/components/ui/sidebar';
 import { Toaster } from "@/components/ui/toaster";
+import { FirebaseProvider } from '@/firebase/provider';
 
 export const metadata: Metadata = {
   title: 'Aire CRM',
@@ -30,15 +28,9 @@ export default function RootLayout({
           'min-h-screen bg-background font-body antialiased'
         )}
       >
-        <SidebarProvider>
-          <AppSidebar />
-          <main className="flex min-h-svh flex-1 flex-col bg-background md:ml-[var(--sidebar-width-icon)] lg:ml-[var(--sidebar-width)]">
-            <Header />
-            <div className="flex-1 p-4 md:p-6 lg:p-8">
-              {children}
-            </div>
-          </main>
-        </SidebarProvider>
+        <FirebaseProvider>
+          {children}
+        </FirebaseProvider>
         <Toaster />
       </body>
     </html>
