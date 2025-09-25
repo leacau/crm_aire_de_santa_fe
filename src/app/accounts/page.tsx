@@ -2,6 +2,7 @@ import { AccountsTable } from "@/components/accounts/accounts-table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { PlusCircle, Search } from "lucide-react";
+import Link from "next/link";
 
 export default function AccountsPage() {
   return (
@@ -13,9 +14,11 @@ export default function AccountsPage() {
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input type="search" placeholder="Buscar cuentas..." className="pl-8 sm:w-[300px]" />
           </div>
-          <Button>
-            <PlusCircle className="mr-2 h-4 w-4" />
-            Crear Cuenta
+          <Button asChild>
+            <Link href="/accounts/new">
+              <PlusCircle className="mr-2 h-4 w-4" />
+              Crear Cuenta
+            </Link>
           </Button>
         </div>
       </div>
