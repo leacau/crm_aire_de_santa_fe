@@ -1,0 +1,25 @@
+import { AccountsTable } from "@/components/accounts/accounts-table";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { PlusCircle, Search } from "lucide-react";
+
+export default function AccountsPage() {
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-headline font-semibold">Cuentas</h1>
+        <div className="flex items-center gap-2">
+           <div className="relative">
+            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+            <Input type="search" placeholder="Buscar cuentas..." className="pl-8 sm:w-[300px]" />
+          </div>
+          <Button>
+            <PlusCircle className="mr-2 h-4 w-4" />
+            Crear Cuenta
+          </Button>
+        </div>
+      </div>
+      <AccountsTable />
+    </div>
+  );
+}
