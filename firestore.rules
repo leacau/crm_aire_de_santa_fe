@@ -1,38 +1,15 @@
 rules_version = '2';
-
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Helper functions
-    function isSignedIn() {
-      return request.auth != null;
-    }
-
-    function isOwner(userId) {
-      return request.auth.uid == userId;
-    }
-
-    function getUserData(userId) {
-      return get(/databases/$(database)/documents/users/$(userId)).data;
-    }
-
-    function isAdmin() {
-      return isSignedIn() && getUserData(request.auth.uid).role == 'admin';
-    }
-
-    // Rules for users collection
+    // Users can read and write their own user document
     match /users/{userId} {
-      // Admins can create users, or users can create their own profile
-      allow create: if isAdmin() || isOwner(userId);
-      // Admins can read any user, users can read their own profile
-      allow read: if isAdmin() || isOwner(userId);
-      // Admins can update any user, users can update their own profile
-      allow update: if isAdmin() || isOwner(userId);
-      // Only admins can delete users
-      allow delete: if isAdmin();
+      allow read, update: if request.auth != null && request.auth.uid == userId;
+      allow create: if request.auth != null;
     }
-    
-    // Fallback rule
+
+    // Default deny all other reads/writes
+    // We will add more specific rules for other collections
     match /{document=**} {
       allow read, write: if false;
     }
