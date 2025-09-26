@@ -63,6 +63,7 @@ export default function RegisterPage() {
 
   async function onSubmit(values: z.infer<typeof registerSchema>) {
     try {
+      // 1. Create the user in Firebase Auth
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         values.email,
@@ -70,6 +71,7 @@ export default function RegisterPage() {
       );
       const user = userCredential.user;
 
+      // 2. Create the user document in Firestore
       await setDoc(doc(db, "users", user.uid), {
         uid: user.uid,
         email: user.email,
@@ -79,20 +81,20 @@ export default function RegisterPage() {
         createdAt: serverTimestamp(),
       });
       
-      toast({
-        title: "¡Registro exitoso!",
-        description: "Tu cuenta ha sido creada. Ahora puedes iniciar sesión.",
-      });
-
-      router.push("/login");
+      // 3. Redirect to the dashboard, Firebase automatically handles the session
+      router.push("/dashboard");
 
     } catch (error: any) {
       let errorMessage = "Ocurrió un error durante el registro.";
       if (error.code === 'auth/email-already-in-use') {
         errorMessage = 'Este email ya está registrado.';
+      } else if (error.code === 'auth/weak-password') {
+        errorMessage = 'La contraseña es demasiado débil. Debe tener al menos 6 caracteres.';
       } else if (error.code) {
-        errorMessage = `Error: ${error.code}`;
+        console.error("Firebase aith error code:", error.code);
+        errorMessage = `Ocurrió un error inesperado. Por favor, intente de nuevo.`;
       }
+      
       toast({
         variant: "destructive",
         title: "Error de registro",

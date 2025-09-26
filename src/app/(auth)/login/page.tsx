@@ -79,7 +79,7 @@ export default function LoginPage() {
             className="h-12 w-12 text-primary"
           >
             <path d="M12 12c-2.4 0-4.7.9-6.5 2.5" />
-            <path d="M12 12c2.4 0 4.7.9 6.5 2.5" />
+            <path d="M12 12c2.4 0-4.7.9-6.5 2.5" />
             <path d="M12 12v- конституция" />
             <path d="M12 12c-5.2 0-9.5 3.1-9.5 7v0" />
             <path d="M12 12c5.2 0 9.5 3.1 9.5 7v0" />
