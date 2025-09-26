@@ -81,15 +81,17 @@ export default function RegisterPage() {
       
       toast({
         title: "¡Registro exitoso!",
-        description: "Tu cuenta ha sido creada.",
+        description: "Tu cuenta ha sido creada. Ahora puedes iniciar sesión.",
       });
 
-      router.push("/dashboard");
+      router.push("/login");
 
     } catch (error: any) {
       let errorMessage = "Ocurrió un error durante el registro.";
       if (error.code === 'auth/email-already-in-use') {
         errorMessage = 'Este email ya está registrado.';
+      } else if (error.code) {
+        errorMessage = `Error: ${error.code}`;
       }
       toast({
         variant: "destructive",
