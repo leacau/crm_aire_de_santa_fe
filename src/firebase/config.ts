@@ -3,12 +3,13 @@
 // This is the Firebase configuration for your web app.
 // It is safe to expose this configuration to the client.
 const firebaseConfig = {
-  "projectId": "studio-4698748512-76e6b",
-  "appId": "1:161460412233:web:97f65cf463f7b192e00498",
-  "apiKey": "AIzaSyDXD3WyDEhAwGSLOJZ7DtE58NZh7_LyRLw",
-  "authDomain": "studio-4698748512-76e6b.firebaseapp.com",
-  "measurementId": "",
-  "messagingSenderId": "161460412233"
+  apiKey: "AIzaSyDhGY79PE-XiH8W1eAESRyBEFmytwdkKEk",
+  authDomain: "crm-aire.firebaseapp.com",
+  projectId: "crm-aire",
+  storageBucket: "crm-aire.firebasestorage.app",
+  messagingSenderId: "128258561335",
+  appId: "1:128258561335:web:05b7cf4b43e6eda24136b2",
+  measurementId: "G-FC821FXKVW"
 };
 
 export default firebaseConfig;
